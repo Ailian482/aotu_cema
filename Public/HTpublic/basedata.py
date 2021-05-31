@@ -5,6 +5,7 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains  # 导入鼠标类，进行鼠标悬停等操作
+import logging
 
 # 显示等待需要导入的模块
 from selenium.webdriver.support.ui import WebDriverWait
@@ -97,6 +98,7 @@ class BaseMethod(object):
     # 点击方法
     def click_way(self, location_text, ele_text):
         el = self.locator(location_text, ele_text).click()
+        logging.info('点击元素：{}'.format(location_text, ele_text))
         return el
 
     # 输入方法
@@ -105,8 +107,11 @@ class BaseMethod(object):
         # input_text参数是输入文本
         # 防止有些控件需要点击一下光标才能定位到输入框
         self.click_way(location_text, ele_text)
+        # 输入前清空输入框
+        self.locator(location_text, ele_text).clear()
         # 往输入框输入内容
         self.locator(location_text, ele_text).send_keys(input_text)
+        logging.info('输入文本：{}'.format(location_text, ele_text, input_text))
 
     # 获取悬停类控件
     def hover(self, location_text, ele_text):
@@ -122,8 +127,6 @@ class BaseMethod(object):
         # 跳转后等待，等待这块可以根据后期需求使用显示等待或者隐身等待
         # self.waiting(location_text, ele_text)
 
-
-
     # 获取控件文本信息方法
     def get_ele_text(self, location_text, ele_text):
         text = self.locator(location_text, ele_text).text
@@ -131,9 +134,9 @@ class BaseMethod(object):
 
     # 获取有 iframe 框架类控件
 
-
+    @ classmethod
     # 关闭浏览器方法
-    def quit_browser(self):
+    def quit_browser(cls):
         driver.quit()
 
 

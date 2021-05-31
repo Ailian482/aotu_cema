@@ -44,8 +44,9 @@ class SearchFlight(object):
 
     # 输入「出发/到达城市」，再选择
     def input_city(self, *input_ele):
-        location_text1 = input_ele[0]
-        location_text2 = input_ele[1]
+        # 传入一个列表或元组大于或者等于三个元素，每个元素需要传入
+        location_text1 = input_ele[0]  # 需要两个参数（定位方式，定位文本，输入文本）
+        location_text2 = input_ele[1]  # 需要三个参数（定位方式，定位文本，输入文本）
         location_text3 = input_ele[2]
         try:
             # 如果出发城市输入框出现了继续往下走
@@ -55,18 +56,10 @@ class SearchFlight(object):
             # 输入你要查找的城市
             BaseMethod().input_way(*location_text1)
             try:
-                # 等待需要定位城市分类出现
+                # 等待输入城市出现
                 BaseMethod().waiting(*location_text2)
-                # 选择「城市分类」
+                # 选择「城市」
                 BaseMethod().click_way(*location_text2)
-                try:
-                    # 等待需要定位的城市名称出现
-                    BaseMethod().waiting(*location_text3)
-                    # 选择「具体某个城市」
-                    BaseMethod().click_way(*location_text3)
-                except:
-                    # 转到日志中，目前不会转
-                    print('城市数据未加载出来')
             except:
                 # 转到日志中，目前不会转
                 print('选择框未出现或者城市分类标签未出现')
@@ -74,11 +67,11 @@ class SearchFlight(object):
             # 转到日志中，目前不会转
             print('城市输入框不存在')
 
-    # 选择「出发日期」
+    # 选择「出发/返程日期」
     def select_depdate(self):
         pass
 
-    # 选择「返程日期」
+    # 输入「出发/返程日期」
     def select_bacdate(self):
         pass
 

@@ -15,10 +15,15 @@
 
 到达城市输入框
     //div/nz-form-item[2]/nz-form-control/div/span/airport-picker/input
-出发日期
-    //nz-picker[@class='ng-tns-c24-2']/span/input
-返程日期
-    //nz-picker[@class='ng-tns-c24-3']/span/input
+
+出发日期输入框
+    nz-col.ant-col-12:nth-child(1)>nz-form-item>nz-form-control>div>span>nz-date-picker>nz-picker>span>input
+返程日期输入框
+    nz-col.ant-col-12:nth-child(2)>nz-form-item>nz-form-control>div>span>nz-date-picker>nz-picker>span>input
+
+点击输入、返程日期->输入框
+    div.ant-calendar-date-input-wrap>input
+
 
 
 """
