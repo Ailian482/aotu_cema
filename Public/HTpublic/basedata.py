@@ -6,6 +6,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains  # 导入鼠标类，进行鼠标悬停等操作
 import logging
+from Config.config import ConfigManger  # 导入配置文件，读取元素定位方式
 
 # 显示等待需要导入的模块
 from selenium.webdriver.support.ui import WebDriverWait
@@ -13,9 +14,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 class BaseMethod(object):
+    def __init__(self):
+        """获取元素定位方式"""
+        self.rl = ConfigManger.LOCATOR_METHOD
 
-    # 获取浏览器驱动
-    def open_browser(self, browser_type):
+    @staticmethod
+    def open_browser(browser_type):
+        """获取浏览器驱动"""
         # 如果是使用 chrome 浏览器运行
         global driver
         if browser_type == 'chrome':
@@ -37,90 +42,69 @@ class BaseMethod(object):
         openurl = driver.get(url)
         return openurl
 
-    def locator(self, name, value):
-        if name == 'xpath':
-            el = driver.find_element_by_xpath(value)
-            return el
-        elif name == 'css':
-            el = driver.find_element_by_css_selector(value)
-            return el
-        elif name == 'id':
-            el = driver.find_element_by_id(value)
-            return el
-        elif name == 'name':
-            el = driver.find_element_by_name(value)
-            return el
-        elif name == 'class':
-            el = driver.find_element_by_class_name(value)
-            return el
-        elif name == 'link':
-            el = driver.find_element_by_link_text(value)
-            return el
-        elif name == 'plink':
-            el = driver.find_element_by_partial_link_text(value)
-            return el
-        elif name == 'tag':
-            el = driver.find_element_by_tag_name(value)
-            return el
+    def locator(self, name, ele_text):
+        """查找单个元素"""
+        name = self.rl[name]
+        el = driver.find_element(name, ele_text)
+        return el
+        # if name == 'xpath':
+        #     el = driver.find_element_by_xpath(ele_text)
+        #     return el
+        # elif name == 'css':
+        #     el = driver.find_element_by_css_selector(ele_text)
+        #     return el
+
+    def find_elements(self, name, ele_text):
+        """查找多个相同元素"""
+        name = self.rl[name]
+        el = driver.find_elements(name, ele_text)
+        return el
 
     # 隐式等待方法
-    def implicit_wait(self, location_text, ele_text):
+    def implicit_wait(self, *args):
         driver.implicitly_wait(60)
-        self.locator(location_text, ele_text)
+        self.locator(*args)
 
     # 显示等待方法
     def waiting(self, name, ele_text):
-        if name == 'xpath':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.XPATH, ele_text)))
-            return el
-        elif name == 'css':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR, ele_text)))
-            return el
-        elif name == 'id':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.ID, ele_text)))
-            return el
-        elif name == 'name':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.NAME, ele_text)))
-            return el
-        elif name == 'class':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, ele_text)))
-            return el
-        elif name == 'link':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.LINK_TEXT, ele_text)))
-            return el
-        elif name == 'plink':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, ele_text)))
-            return el
-        elif name == 'tag':
-            el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.TAG_NAME, ele_text)))
-            return el
+        """name为元素定位方式，ele_text为定位文本"""
+        name = self.rl[name]
+        el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((name, ele_text)))
+        return el
+        # if name == 'xpath':
+        #     el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((self.name, ele_text)))
+        #     return el
+        # elif name == 'css':
+        #     el = WebDriverWait(driver, 20, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR, ele_text)))
+        #     return el
 
     # 点击方法
-    def click_way(self, location_text, ele_text):
-        el = self.locator(location_text, ele_text).click()
-        logging.info('点击元素：{}'.format(location_text, ele_text))
+    def click_way(self, *args):
+        """需要传入两个参数：定位方式，定位文本"""
+        el = self.locator(*args).click()
+        logging.info('点击元素：{}'.format(*args))
         return el
 
     # 输入方法
-    def input_way(self, location_text, ele_text, input_text):
+    def input_way(self, *args, input_text):
+        """args需要两个参数：定位方式，定位文本"""
         # ele_text参数是控件元素文本
         # input_text参数是输入文本
         # 防止有些控件需要点击一下光标才能定位到输入框
-        self.click_way(location_text, ele_text)
+        self.click_way(*args)
         # 输入前清空输入框
-        self.locator(location_text, ele_text).clear()
+        self.locator(*args).clear()
         # 往输入框输入内容
-        self.locator(location_text, ele_text).send_keys(input_text)
-        logging.info('输入文本：{}'.format(location_text, ele_text, input_text))
+        self.locator(*args).send_keys(input_text)
+        logging.info('输入文本：{}'.format(*args, input_text))
 
     # 获取悬停类控件
-    def hover(self, location_text, ele_text):
-        ele = self.locator(location_text, ele_text)
+    def hover(self, *args):
+        ele = self.locator(*args)
         ActionChains(driver).move_to_element(ele).perform()
 
     # 获取跳转页面类控件(多窗体)
-    def skip(self):
-    # def skip(self, location_text, ele_text):
+    def switch_window(self):
         # driver.window_handles：打印所有窗体信息
         # driver.window_handles[-1]：获取最后打开的窗体信息
         driver.switch_to.window(driver.window_handles[-1])
@@ -128,25 +112,30 @@ class BaseMethod(object):
         # self.waiting(location_text, ele_text)
 
     # 获取控件文本信息方法
-    def get_ele_text(self, location_text, ele_text):
-        text = self.locator(location_text, ele_text).text
+    def get_ele_text(self, *args):
+        text = self.locator(*args).text
         return text
 
-    # 获取有 iframe 框架类控件
+    # 切换到 iframe 框架里面
+    def switch_iframe(self, *args):
+        to_frame = self.locator(*args)
+        driver.switch_to.frame(to_frame)
 
-    @ classmethod
+    # 从 iframe 切换到 父iframe
+    def to_parent_frame(self):
+        driver.switch_to.parent_frame()
+
+    # 从 iframe 切换到 html
+    def switch_html(self):
+        driver.switch_to.default_content()
+
     # 关闭浏览器方法
-    def quit_browser(cls):
+    def quit_browser(self):
         driver.quit()
 
 
 if __name__ == '__main__':
     pass
-    # BasePage().open_browser('chrome').get('https://test-tehang-system-env-3.teyixing.com/login')
-    # time.sleep(5)
-    # BasePage().input_way('xpath', '//div[@class="ant-spin-container"]/div/form/nz-form-item[1]/nz-form-control/div/span/nz-input-group/input', '111190')
-    # ele2 = '//div[@class="ant-spin-container"]/div/form/nz-form-item[2]/nz-form-control/div/span/nz-input-group/input'
-    # BasePage().input_way('xpath', ele2, '@12345678')
     BaseMethod().open_browser('chrome')
     url = 'https://test-tehang-system-env-3.teyixing.com/login'
     BaseMethod().open_url(url)
