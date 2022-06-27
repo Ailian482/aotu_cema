@@ -1,0 +1,11 @@
+xlrd==1.2.0
+xlutils==2.0.0
+pytest==5.0.0
+pytest-dependency==0.5.1
+pytest-html==1.21.1
+pytest-metadata==1.8.0
+pytest-rerunfailures==9.1.1
+py==1.8.0
+PyYAML==5.4.1
+selenium==4.3.0
+requests
