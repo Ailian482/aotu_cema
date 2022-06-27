@@ -1,3 +1,0 @@
-账号: 'xpath==//div[@class="ant-spin-container"]/div/form/nz-form-item[1]/nz-form-control/div/span/nz-input-group/input'
-密码: 'xpath==//div[@class="ant-spin-container"]/div/form/nz-form-item[2]/nz-form-control/div/span/nz-input-group/input'
-登录按钮: 'xpath==//div[@class="ant-spin-container"]/div/form/nz-form-item[3]/button'
