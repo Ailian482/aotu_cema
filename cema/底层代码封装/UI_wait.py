@@ -14,6 +14,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from AutoTest.Chrome_Options import ChromeOption
 from selenium.webdriver.support.relative_locator import locate_with
+from lxml import etree
 
 
 def open_browser(type_):
@@ -62,32 +63,42 @@ Python 的反射机制：
 
 
 # 基于 type_值决定生成的 driver 对象是什么类型
-class WebPage(object):
+class Keys(object):
     # 构造函数
-    def __init__(self, type_):
+    def __init__(self, text):
         # 创建临时 driver
-        self.driver = open_browser(type_)
+        self.driver = open_browser(text)
         # 一般创建了 webdriver 之后就会设置一个 隐式等待
         self.driver.implicitly_wait(10)
 
     # 访问 url
-    def open(self, url):
-        self.driver.get(url)
+    def open(self, text):
+        self.driver.get(text)
 
     # 定位元素
     def locate_ele(self, name, value):
         return self.driver.find_element(name, value)
 
     # 点击操作
-    def click_ele(self, name, value):
+    def click(self, name, value):
         self.locate_ele(name, value).click()
 
     # 输入
-    def input_text(self, name, value, text):
+    def input(self, name, value, text):
         self.locate_ele(name, value).send_keys(text)
 
+    # 获取元素中的文本内容
+    def get_text(self, name, value, text):
+        if text == 'text()':
+            html = etree.HTML(self.driver.page_source)
+            text_translation = html.xpath(value + '/text()')[0]
+            return text_translation
+        else:
+            text_translation = self.locate_ele(name, value).text
+            return text_translation
+
     # 退出
-    def quit_browser(self):
+    def quit(self):
         self.driver.quit()
 
     # 显示等待, 会返回一个操作元素，所以需要用 return
@@ -96,8 +107,8 @@ class WebPage(object):
             lambda ele: self.locate_ele(name, value), message='查找元素失败')
 
     # 强制等待
-    def wait_(self, time_):
-        time.sleep(time_)
+    def wait_(self, text):
+        time.sleep(text)
 
     # 切换 iframe 句柄
     def switch_frame(self, value, name=None):
@@ -162,10 +173,11 @@ class WebPage(object):
     #     self.driver.switch_to.window(handles[index])
 
     # 文本断言
-    def assert_text(self, name, value, expect):
+    def assert_text(self, name, value, text, expect):
         try:
-            reality_text = self.locate_ele(name, value).text
+            reality_text = self.get_text(name, value, text)
             assert expect == reality_text, "断言失败，实际结果为：{}".format(reality_text)
+            return True
         except Exception as e:
             print('断言失败信息：' + str(e))
             return False
@@ -180,7 +192,7 @@ class WebPage(object):
             return False
 
 # if __name__ == "__main__":
-    # d = WebPage("chrome")
+    # d = Keys("chrome")
     # d.open("https://www.baidu.com/")
     # # d.click_ele(By.ID, 'kw')
     # # d.wait_(5)
