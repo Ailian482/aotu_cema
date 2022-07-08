@@ -15,10 +15,10 @@ class ChromeOption(object):
     def options(self):
         """隐藏WebDriver提示条"""
         option = ChromeOptions()
+        # 去掉默认的提示自动化信息：没啥用，一般没有什么影响，警告条可能会遮挡
         option.add_experimental_option('excludeSwitches', ['enable-automation'])
         option.add_experimental_option('useAutomationExtension', False)
         return option
-
 
 
 if __name__ == "__main__":

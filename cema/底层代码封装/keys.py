@@ -9,10 +9,9 @@
 import time
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-from AutoTest.Chrome_Options import ChromeOption
+from cema.config.Chrome_Options import ChromeOption
 from selenium.webdriver.support.relative_locator import locate_with
 from lxml import etree
 
@@ -20,7 +19,8 @@ from lxml import etree
 def open_browser(type_):
     if type_ == "Chrome":
         driver = webdriver.Chrome(options=ChromeOption().options())
-        driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {'source':'Object.defineProperty(navigator,"webdriver",{get:()=>undefind})'})
+        driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument',
+                               {'source': 'Object.defineProperty(navigator,"webdriver",{get:()=>undefind})'})
     else:
         try:
             driver = getattr(webdriver, type_)()
@@ -159,7 +159,7 @@ class Keys(object):
             return self.driver.find_element(getattr(
                 locate_with(method_dict.get(method), value), direction_dict.get(direction)
             )(el))
-        
+
     # 句柄的切换(考虑不同场景的不同切换）
     def switch_handle(self, close=False, index=1):
         handles = self.driver.window_handles
@@ -192,8 +192,8 @@ class Keys(object):
             return False
 
 # if __name__ == "__main__":
-    # d = Keys("chrome")
-    # d.open("https://www.baidu.com/")
-    # # d.click_ele(By.ID, 'kw')
-    # # d.wait_(5)
-    # d.input_text(By.ID, 'kw', "小白猪")
+# d = Keys("chrome")
+# d.open("https://www.baidu.com/")
+# # d.click_ele(By.ID, 'kw')
+# # d.wait_(5)
+# d.input_text(By.ID, 'kw', "小白猪")

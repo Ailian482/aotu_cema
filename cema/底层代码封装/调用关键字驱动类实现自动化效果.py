@@ -2,7 +2,7 @@
 # 作   者：Ailian
 # 开发时间：2022/6/7 下午12:37
 
-from cema.底层代码封装.UI_wait import Keys
+from cema.底层代码封装.keys import Keys
 # from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions

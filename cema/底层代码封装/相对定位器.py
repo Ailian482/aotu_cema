@@ -6,7 +6,7 @@
 selenium 4.0 相对定位器
 """
 from selenium import webdriver
-from AutoTest.Chrome_Options import ChromeOption
+from cema.config.Chrome_Options import ChromeOption
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.relative_locator import locate_with
 
