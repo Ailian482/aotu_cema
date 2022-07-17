@@ -1,128 +1,28 @@
-2022-07-04 14:25:42,280 read.py INFO read 当前正在执行启动浏览器
-2022-07-04 14:25:44,001 read.py INFO read 当前正在执行访问url
-2022-07-04 14:25:46,027 read.py INFO read 当前正在执行输入
-2022-07-04 14:25:46,159 read.py INFO read 当前正在执行点击
-2022-07-04 14:25:46,236 read.py INFO read 当前正在执行等待3秒
-2022-07-04 14:25:49,240 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-04 14:25:49,334 read.py INFO read 当前正在执行关闭浏览器
-2022-07-04 16:24:55,124 read.py INFO read 当前正在执行启动浏览器
-2022-07-04 16:24:56,292 read.py INFO read 当前正在执行访问url
-2022-07-04 16:24:57,272 read.py INFO read 当前正在执行输入
-2022-07-04 16:24:57,420 read.py INFO read 当前正在执行点击
-2022-07-04 16:24:57,505 read.py INFO read 当前正在执行等待3秒
-2022-07-04 16:25:00,509 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-04 16:25:00,629 read.py INFO read 当前正在执行关闭浏览器
-2022-07-07 17:21:56,331 read.py INFO read 当前正在执行启动浏览器
-2022-07-07 17:22:03,918 read.py INFO read 当前正在执行访问url
-2022-07-07 17:22:04,806 read.py INFO read 当前正在执行输入
-2022-07-07 17:22:04,819 read.py ERROR read 运行异常：Message: invalid argument: invalid locator
-  (Session info: chrome=103.0.5060.114)
-Stacktrace:
-0   chromedriver                        0x0000000100cebd19 chromedriver + 5197081
-1   chromedriver                        0x0000000100c79b23 chromedriver + 4729635
-2   chromedriver                        0x00000001008572b8 chromedriver + 393912
-3   chromedriver                        0x000000010088bdd4 chromedriver + 609748
-4   chromedriver                        0x000000010088c581 chromedriver + 611713
-5   chromedriver                        0x00000001008be5a4 chromedriver + 816548
-6   chromedriver                        0x00000001008a982d chromedriver + 731181
-7   chromedriver                        0x00000001008bc2a1 chromedriver + 807585
-8   chromedriver                        0x00000001008a96f3 chromedriver + 730867
-9   chromedriver                        0x000000010087fa49 chromedriver + 559689
-10  chromedriver                        0x0000000100880a75 chromedriver + 563829
-11  chromedriver                        0x0000000100cbdbdd chromedriver + 5008349
-12  chromedriver                        0x0000000100cc2b64 chromedriver + 5028708
-13  chromedriver                        0x0000000100cc7bcf chromedriver + 5049295
-14  chromedriver                        0x0000000100cc37ca chromedriver + 5031882
-15  chromedriver                        0x0000000100c9d59f chromedriver + 4875679
-16  chromedriver                        0x0000000100cdd388 chromedriver + 5137288
-17  chromedriver                        0x0000000100cdd50f chromedriver + 5137679
-18  chromedriver                        0x0000000100cf3085 chromedriver + 5226629
-19  libsystem_pthread.dylib             0x00007ff811ccd4e1 _pthread_start + 125
-20  libsystem_pthread.dylib             0x00007ff811cc8f6b thread_start + 15
-Traceback (most recent call last):
-  File "/Users/macbook/Documents/Python/cema_aotutest/cema/excel_read/read.py", line 61, in read
-    getattr(keys, values[1])(**data)
-  File "/Users/macbook/Documents/Python/cema_aotutest/cema/底层代码封装/UI_wait.py", line 87, in input
-    self.locate_ele(name, value).send_keys(text)
-  File "/Users/macbook/Documents/Python/cema_aotutest/cema/底层代码封装/UI_wait.py", line 79, in locate_ele
-    return self.driver.find_element(name, value)
-  File "/Users/macbook/Documents/Python/cema_aotutest/venv/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 857, in find_element
-    return self.execute(Command.FIND_ELEMENT, {
-  File "/Users/macbook/Documents/Python/cema_aotutest/venv/lib/python3.10/site-packages/selenium/webdriver/remote/webdriver.py", line 435, in execute
-    self.error_handler.check_response(response)
-  File "/Users/macbook/Documents/Python/cema_aotutest/venv/lib/python3.10/site-packages/selenium/webdriver/remote/errorhandler.py", line 247, in check_response
-    raise exception_class(message, screen, stacktrace)
-selenium.common.exceptions.InvalidArgumentException: Message: invalid argument: invalid locator
-  (Session info: chrome=103.0.5060.114)
-Stacktrace:
-0   chromedriver                        0x0000000100cebd19 chromedriver + 5197081
-1   chromedriver                        0x0000000100c79b23 chromedriver + 4729635
-2   chromedriver                        0x00000001008572b8 chromedriver + 393912
-3   chromedriver                        0x000000010088bdd4 chromedriver + 609748
-4   chromedriver                        0x000000010088c581 chromedriver + 611713
-5   chromedriver                        0x00000001008be5a4 chromedriver + 816548
-6   chromedriver                        0x00000001008a982d chromedriver + 731181
-7   chromedriver                        0x00000001008bc2a1 chromedriver + 807585
-8   chromedriver                        0x00000001008a96f3 chromedriver + 730867
-9   chromedriver                        0x000000010087fa49 chromedriver + 559689
-10  chromedriver                        0x0000000100880a75 chromedriver + 563829
-11  chromedriver                        0x0000000100cbdbdd chromedriver + 5008349
-12  chromedriver                        0x0000000100cc2b64 chromedriver + 5028708
-13  chromedriver                        0x0000000100cc7bcf chromedriver + 5049295
-14  chromedriver                        0x0000000100cc37ca chromedriver + 5031882
-15  chromedriver                        0x0000000100c9d59f chromedriver + 4875679
-16  chromedriver                        0x0000000100cdd388 chromedriver + 5137288
-17  chromedriver                        0x0000000100cdd50f chromedriver + 5137679
-18  chromedriver                        0x0000000100cf3085 chromedriver + 5226629
-19  libsystem_pthread.dylib             0x00007ff811ccd4e1 _pthread_start + 125
-20  libsystem_pthread.dylib             0x00007ff811cc8f6b thread_start + 15
-
-2022-07-07 17:27:16,111 read.py INFO read 当前正在执行启动浏览器
-2022-07-07 17:27:18,167 read.py INFO read 当前正在执行访问url
-2022-07-07 17:27:19,020 read.py INFO read 当前正在执行输入
-2022-07-07 17:27:19,157 read.py INFO read 当前正在执行点击
-2022-07-07 17:27:19,244 read.py INFO read 当前正在执行等待3秒
-2022-07-07 17:27:22,249 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-07 17:27:22,405 read.py INFO read 当前正在执行关闭浏览器
-2022-07-08 19:53:01,792 read.py INFO read 当前正在执行启动浏览器
-2022-07-08 19:53:02,925 read.py INFO read 当前正在执行访问url
-2022-07-08 19:53:04,590 read.py INFO read 当前正在执行输入
-2022-07-08 19:53:04,717 read.py INFO read 当前正在执行点击
-2022-07-08 19:53:04,823 read.py INFO read 当前正在执行等待3秒
-2022-07-08 19:53:07,826 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-08 19:53:07,946 read.py INFO read 当前正在执行关闭浏览器
-2022-07-08 19:55:44,517 read.py INFO read 当前正在执行启动浏览器
-2022-07-08 19:55:46,049 read.py INFO read 当前正在执行访问url
-2022-07-08 19:55:46,932 read.py INFO read 当前正在执行输入
-2022-07-08 19:55:47,065 read.py INFO read 当前正在执行点击
-2022-07-08 19:55:47,176 read.py INFO read 当前正在执行等待3秒
-2022-07-08 19:55:50,177 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-08 19:55:50,292 read.py INFO read 当前正在执行关闭浏览器
-2022-07-08 19:58:24,344 read.py INFO read 当前正在执行启动浏览器
-2022-07-08 19:58:25,802 read.py INFO read 当前正在执行访问url
-2022-07-08 19:58:26,688 read.py INFO read 当前正在执行输入
-2022-07-08 19:58:26,851 read.py INFO read 当前正在执行点击
-2022-07-08 19:58:26,895 read.py INFO read 当前正在执行等待3秒
-2022-07-08 19:58:29,899 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-08 19:58:30,009 read.py INFO read 当前正在执行关闭浏览器
-2022-07-08 19:59:25,955 read.py INFO read 当前正在执行启动浏览器
-2022-07-08 19:59:27,013 read.py INFO read 当前正在执行访问url
-2022-07-08 19:59:27,906 read.py INFO read 当前正在执行输入
-2022-07-08 19:59:28,048 read.py INFO read 当前正在执行点击
-2022-07-08 19:59:28,123 read.py INFO read 当前正在执行等待3秒
-2022-07-08 19:59:31,126 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-08 19:59:31,273 read.py INFO read 当前正在执行关闭浏览器
-2022-07-08 19:59:59,914 read.py INFO read 当前正在执行启动浏览器
-2022-07-08 20:00:01,380 read.py INFO read 当前正在执行访问url
-2022-07-08 20:00:02,285 read.py INFO read 当前正在执行输入
-2022-07-08 20:00:02,406 read.py INFO read 当前正在执行点击
-2022-07-08 20:00:02,501 read.py INFO read 当前正在执行等待3秒
-2022-07-08 20:00:05,505 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-08 20:00:05,615 read.py INFO read 当前正在执行关闭浏览器
-2022-07-08 20:00:41,789 read.py INFO read 当前正在执行启动浏览器
-2022-07-08 20:00:43,257 read.py INFO read 当前正在执行访问url
-2022-07-08 20:00:44,121 read.py INFO read 当前正在执行输入
-2022-07-08 20:00:44,270 read.py INFO read 当前正在执行点击
-2022-07-08 20:00:44,338 read.py INFO read 当前正在执行等待3秒
-2022-07-08 20:00:47,342 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
-2022-07-08 20:00:47,428 read.py INFO read 当前正在执行关闭浏览器
+2022-07-08 23:02:29,866 read.py INFO read 当前正在执行启动浏览器
+2022-07-08 23:02:31,447 read.py INFO read 当前正在执行访问url
+2022-07-08 23:02:32,299 read.py INFO read 当前正在执行输入
+2022-07-08 23:02:32,482 read.py INFO read 当前正在执行点击
+2022-07-08 23:02:32,544 read.py INFO read 当前正在执行等待3秒
+2022-07-08 23:02:35,549 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
+2022-07-08 23:02:35,673 read.py INFO read 当前正在执行关闭浏览器
+2022-07-08 23:04:35,569 read.py INFO read 当前正在执行None
+2022-07-08 23:04:35,570 read.py INFO read 当前正在执行描述
+2022-07-08 23:04:35,570 read.py INFO read 当前正在执行启动浏览器
+2022-07-08 23:04:37,038 read.py INFO read 当前正在执行访问url
+2022-07-08 23:04:37,810 read.py INFO read 当前正在执行输入
+2022-07-08 23:04:37,954 read.py INFO read 当前正在执行点击
+2022-07-08 23:04:37,996 read.py INFO read 当前正在执行等待3秒
+2022-07-08 23:04:40,998 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
+2022-07-08 23:05:24,818 read.py INFO read 当前正在执行启动浏览器
+2022-07-08 23:05:26,293 read.py INFO read 当前正在执行访问url
+2022-07-08 23:05:27,149 read.py INFO read 当前正在执行输入
+2022-07-08 23:05:27,314 read.py INFO read 当前正在执行点击
+2022-07-08 23:05:27,357 read.py INFO read 当前正在执行等待3秒
+2022-07-08 23:05:30,362 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
+2022-07-08 23:07:50,279 read.py INFO read 当前正在执行启动浏览器
+2022-07-08 23:07:51,761 read.py INFO read 当前正在执行访问url
+2022-07-08 23:07:53,601 read.py INFO read 当前正在执行输入
+2022-07-08 23:07:53,757 read.py INFO read 当前正在执行点击
+2022-07-08 23:07:53,843 read.py INFO read 当前正在执行等待3秒
+2022-07-08 23:07:56,846 read.py INFO read 当前正在执行断言是否包含 搜索工具的文本
+2022-07-08 23:11:27,525 read.py INFO read 当前正在执行启动浏览器

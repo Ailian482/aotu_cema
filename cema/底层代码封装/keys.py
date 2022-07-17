@@ -11,6 +11,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+
+from cema.config import config
 from cema.config.Chrome_Options import ChromeOption
 from selenium.webdriver.support.relative_locator import locate_with
 from lxml import etree
@@ -70,6 +72,7 @@ class Keys(object):
         self.driver = open_browser(text)
         # 一般创建了 webdriver 之后就会设置一个 隐式等待
         self.driver.implicitly_wait(10)
+        self.log = config.get_log('../config/log.ini')
 
     # 访问 url
     def open(self, text):
@@ -118,13 +121,6 @@ class Keys(object):
         :param name:
         :return:
         """
-        # try:
-        #     self.driver.switch_to.frame(self.locate_ele('id', value))
-        # except NoSuchElementException:
-        #     try:
-        #         self.driver.switch_to.frame(self.locate_ele('name', value))
-        #     except NoSuchElementException:
-        #         self.driver.switch_to.frame(self.locate_ele(name, value))
 
         if name is None:
             self.driver.switch_to.frame(value)
@@ -174,12 +170,15 @@ class Keys(object):
 
     # 文本断言
     def assert_text(self, name, value, text, expect):
+        log = config.get_log('../config/log.ini')
         try:
             reality_text = self.get_text(name, value, text)
             assert expect == reality_text, "断言失败，实际结果为：{}".format(reality_text)
             return True
         except Exception as e:
             print('断言失败信息：' + str(e))
+            # self.log.info("断言失败，实际结果为：{}".format(e))
+            log.exception("断言失败，实际结果为：{}".format(e))
             return False
 
     def assert_input(self, name, value, expect):
@@ -189,8 +188,11 @@ class Keys(object):
             assert expect == reality_text, "断言失败，实际结果为：{}".format(reality_text)
         except Exception as e:
             print('断言失败信息：' + str(e))
+            # self.log.exception("断言失败，实际结果为：{}".format(e))
             return False
 
+
+log = Keys('Chrome').log
 # if __name__ == "__main__":
 # d = Keys("chrome")
 # d.open("https://www.baidu.com/")

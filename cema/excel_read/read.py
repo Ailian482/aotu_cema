@@ -6,17 +6,16 @@
 基于Excel文件的内容去进行读取，并结合获取的数据进行自动化的测试执行
 """
 # 读取 Excel 中的用例正文
-import logging
 
 import openpyxl
 
 from cema.config import config
 from cema.excel_read import excel_conf
-from cema.底层代码封装.keys import Keys
+from cema.底层代码封装.keys import Keys,log
 
 
 def read(file):
-    log = config.get_log('../config/log.ini')
+    # log = config.get_log('../config/log.ini')
     excel = openpyxl.load_workbook(file)
     try:
         for name in excel.sheetnames:
@@ -25,6 +24,7 @@ def read(file):
             for values in sheet.values:
                 # 如果第一个单元格是 int 类型，则表示进入了测试用例的核心内容
                 if type(values[0]) is int:
+                    log.info('当前正在执行{}'.format(values[5]))
                     # print(values)
                     # 接收每一行操作行为对应的参数内容
                     data = dict()
@@ -45,7 +45,7 @@ def read(file):
                             2. 常规操作，通过调用实例化的对象执行对应的函数
                             3. 断言操作，判断预期与实际是否符合，将结果写入测试用例中。
                     """
-                    log.info('当前正在执行{}'.format(values[5]))
+
                     # 实例化关键字驱动
                     if values[1] == 'open_browser':
                         keys = Keys(**data)
@@ -54,9 +54,9 @@ def read(file):
                         status = getattr(keys, values[1])(**data)
                         # 基于断言结果True or False 来进行写入操作
                         if status:
-                            excel_conf.pass_(sheet.cell, row=values[0] + 2, column=8)
+                            excel_conf.write_result(sheet.cell, row=values[0] + 2, column=8)
                         else:
-                            excel_conf.failed_(sheet.cell, row=values[0] + 2, column=8)
+                            excel_conf.write_result(sheet.cell, row=values[0] + 2, column=8, status=2)
                         # 断言后的 Excel 写入
                         excel.save(file)
                     # 常规操作
